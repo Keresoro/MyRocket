@@ -112,75 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &369174065
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3978437154517695306, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_Name
-      value: Rocket Ship
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -42
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.94003344
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0009697263
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.00018253019
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.0016416614
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.0024684465
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9999956
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.021000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.18800001
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595579606228860057, guid: 1b69acfb1d695eb4d8189fc52f4c137b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.28300002
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1b69acfb1d695eb4d8189fc52f4c137b, type: 3}
 --- !u!1001 &392970813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -319,36 +250,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7f3cf5e9768d989418179fd918f16c1f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b259fd36a78381546955ab868541b63a, type: 3}
---- !u!1 &483066608
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 369174065}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 483066609}
-  m_Layer: 0
-  m_Name: Rocket Ship (Missing Prefab)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &483066609
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 369174065}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483066608}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &593883024
 PrefabInstance:
   m_ObjectHideFlags: 0

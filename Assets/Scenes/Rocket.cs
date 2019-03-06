@@ -27,6 +27,7 @@ public class Rocket : MonoBehaviour{
         {
             case "Friendly":
                 // do nothing
+                print("Friendly");
                 break;
             case "Finish":
                 print("Hit Finish"); //todo remove
