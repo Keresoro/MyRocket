@@ -1,74 +1,155 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Rocket : MonoBehaviour{
-
+public class Rocket : MonoBehaviour
+{
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+    [SerializeField] float levelLoadDelay = 2f;
+
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip success;
+    [SerializeField] AudioClip death;
+
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem deathParticles;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
 
+    bool isTransitioning = false;
+    bool collisionsDisabled = false;
+
+
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update() {
-        Thrust();
-        Rotate();
+    void Update()
+    {
+        if (!isTransitioning)
+        {
+            RespondToThrustInput();
+            RespondToRotateInput();
+        }
+        if (Debug.isDebugBuild)
+        {
+            RepsondToDebugKeys();
+        }
+    }
+
+    private void RepsondToDebugKeys()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsDisabled = !collisionsDisabled;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (isTransitioning || collisionsDisabled) { return; } 
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
                 // do nothing
-                print("Friendly");
                 break;
             case "Finish":
-                print("Hit Finish"); //todo remove
-                SceneManager.LoadScene(1);
+                StartSuccessSequence();
                 break;
             default:
-                print("Dead");
-                SceneManager.LoadScene(0);
+                StartDeathSequence();
                 break;
         }
     }
-
-    private void Thrust()
+    private void StartSuccessSequence()
     {
-        if (Input.GetKey(KeyCode.Space)) //can thrust whuke rotating
+        isTransitioning = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(success);
+        successParticles.Play();
+        Invoke("LoadNextLevel", levelLoadDelay); 
+    }
+    private void StartDeathSequence()
+    {
+        isTransitioning = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(death);
+        deathParticles.Play();
+        Invoke("LoadFirstLevel", levelLoadDelay); 
+    }
+
+
+    private void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
         {
-            rigidBody.AddRelativeForce(Vector3.up * mainThrust);
-            if (!audioSource.isPlaying) //so it doesn't layer
-            {
-                audioSource.Play();
-            }
+            nextSceneIndex = 0; // loop back to start
+        }
+        SceneManager.LoadScene(nextSceneIndex); // todo allow for more than two levels
+    }
+    private void LoadFirstLevel()
+    {
+        SceneManager.LoadScene(0); 
+    }
+
+    private void RespondToThrustInput()
+    {
+        if (Input.GetKey(KeyCode.Space)) //can thrust while rotating
+        {
+            ApplyThrust();
         }
         else
         {
-            audioSource.Stop();
+            StopApplyingThrust();
         }
     }
-    private void Rotate()
+
+    private void StopApplyingThrust()
     {
-        rigidBody.freezeRotation = true; //take manual control of rotation
+        audioSource.Stop();
+        mainEngineParticles.Stop();
+    }
 
-        float rotationThisFrame = rcsThrust * Time.deltaTime;
+    private void ApplyThrust()
+    {
+        rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+        if (!audioSource.isPlaying) //so it doesn't layer
+        {
+            audioSource.PlayOneShot(mainEngine);
+        }
+        mainEngineParticles.Play();
+    }
 
+    private void RespondToRotateInput()
+    {
         if (Input.GetKey(KeyCode.A))
-        { 
-            transform.Rotate(Vector3.forward * rotationThisFrame);
+        {
+            RotateManually(rcsThrust * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(-Vector3.forward * rotationThisFrame);
+            RotateManually(-rcsThrust * Time.deltaTime);
         }
+        
+    }
+
+    private void RotateManually(float rotationThisFrame)
+    {
+        rigidBody.freezeRotation = true; //take manual control of rotation
+        transform.Rotate(Vector3.forward * rotationThisFrame);
         rigidBody.freezeRotation = false; // resume physics control of rotation
     }
 }
